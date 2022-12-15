@@ -12,3 +12,4 @@ data class character(
     val gender: String,
 
 )
+
