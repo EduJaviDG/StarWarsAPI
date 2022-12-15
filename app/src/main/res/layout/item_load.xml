@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardCornerRadius="16dp"
+    android:layout_margin="16dp"
+    android:layout_marginVertical="8dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/ivCircleImage"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:background="@color/placeholder_bg"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+        </de.hdodenhof.circleimageview.CircleImageView>
+
+        <View
+            android:id="@+id/vTitleLoad"
+            android:layout_width="200dp"
+            android:layout_height="40dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ivCircleImage"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/placeholder_bg">
+        </View>
+
+        <View
+            android:id="@+id/vDescriptionLoad"
+            android:layout_width="200dp"
+            android:layout_height="90dp"
+            app:layout_constraintTop_toBottomOf="@id/vTitleLoad"
+            app:layout_constraintStart_toEndOf="@+id/ivCircleImage"
+            android:layout_marginTop="7dp"
+            android:layout_marginStart="15dp"
+            android:background="@color/placeholder_bg">
+        </View>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
