@@ -1,9 +1,14 @@
 package com.example.mvvmrecycler.ui.model
 
-data class User(
+data class character(
 
-    val image: String,
     val name: String,
-    val description: String
+    val height: Int,
+    val mass : Int,
+    val hair_color: String,
+    val skin_color: String,
+    val eye_color: String,
+    val birth_year: String,
+    val gender: String,
 
 )
