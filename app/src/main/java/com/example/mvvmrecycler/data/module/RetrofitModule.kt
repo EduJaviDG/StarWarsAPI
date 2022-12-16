@@ -1,6 +1,8 @@
-package com.example.mvvmrecycler.data.api
+package com.example.mvvmrecycler.data.module
 
-import com.example.mvvmrecycler.R
+import com.example.mvvmrecycler.data.api.APIService
+import com.example.mvvmrecycler.data.repository.ApiRepository
+import com.example.mvvmrecycler.data.repository.ApiRepositoryImpl
 import com.example.mvvmrecycler.util.Constants
 import dagger.Module
 import dagger.Provides
@@ -25,7 +27,9 @@ object RetrofitModule {
 
     @Provides
     @Singleton
-    fun provideApi() = provideRetrofit().create(APIService::class.java)
+    fun provideApiRepository(implement: ApiRepositoryImpl): ApiRepository = implement
+
+        //provideRetrofit().create(APIService::class.java)
 
 
 }

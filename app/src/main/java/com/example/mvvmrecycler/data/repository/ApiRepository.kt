@@ -1,14 +1,16 @@
 package com.example.mvvmrecycler.data.repository
 
-import com.example.mvvmrecycler.data.api.RetrofitInstance
+
 import com.example.mvvmrecycler.domain.model.CharacterResponse
-import retrofit2.Response
+import com.example.mvvmrecycler.resource.Resource
+import retrofit2.Call
 
-class ApiRepository {
 
-    suspend fun getcharacterByName(search: String): Response<CharacterResponse> {
+interface ApiRepository {
 
-        return RetrofitInstance.api.getCharacterByName(search)
+    suspend fun getcharacterByName(search: String): Resource<CharacterResponse>
 
-    }
+        //return RetrofitInstance.api.getCharacterByName(search)
+
+
 }

@@ -8,33 +8,27 @@ import com.example.mvvmrecycler.data.repository.ApiRepository
 import com.example.mvvmrecycler.domain.usecase.apiUseCase.SearchByNameCase
 import com.example.mvvmrecycler.domain.model.CharacterResponse
 import com.example.mvvmrecycler.domain.model.Characters
+import com.example.mvvmrecycler.resource.Resource
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import retrofit2.Call
 import retrofit2.Response
+import javax.inject.Inject
 
-class ApiViewModel(private val repository: ApiRepository): ViewModel(){
+@HiltViewModel
+class ApiViewModel @Inject constructor(private val serachUse: SearchByNameCase): ViewModel() {
 
-    private var _character: MutableLiveData<List<Characters?>> = MutableLiveData()
+    private var _character = MutableLiveData<Resource<CharacterResponse>>(null)
 
-    val character: LiveData<List<Characters?>> = _character
+    val character: LiveData<Resource<CharacterResponse>> = _character
 
     fun searchByName(search: String) = viewModelScope.launch {
 
-       val result: Response<CharacterResponse> = repository.getcharacterByName(search)
+        _character.value = Resource.inProgress
 
-        if (result.isSuccessful){
+        val result = serachUse.searchCase(search)
 
-            val response: CharacterResponse? = result.body()
-
-            _character.value = response?.result ?: emptyList()
-
-            println("RESULT == SUCCESS")
-
-        } else {
-
-            println("RESULT == FAIL")
-
-
-        }
+        _character.value = result
 
     }
 
