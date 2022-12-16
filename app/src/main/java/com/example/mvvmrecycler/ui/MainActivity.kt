@@ -1,25 +1,30 @@
 package com.example.mvvmrecycler.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.get
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.mvvmrecycler.adapter.MainAdapter
 import com.example.mvvmrecycler.databinding.ActivityMainBinding
-import com.example.mvvmrecycler.ui.model.User
-import com.example.mvvmrecycler.viewmodel.MyViewModel
-import com.facebook.shimmer.Shimmer
-import com.google.firebase.FirebaseApp
+import com.example.mvvmrecycler.viewmodel.ApiViewModel
+import androidx.lifecycle.ViewModelProvider
+import com.example.mvvmrecycler.data.api.APIService
+import com.example.mvvmrecycler.data.repository.ApiRepository
+import com.example.mvvmrecycler.domain.model.CharacterResponse
+import com.example.mvvmrecycler.domain.model.Characters
+import com.example.mvvmrecycler.domain.usecase.apiUseCase.SearchByNameCase
+import com.example.mvvmrecycler.viewmodel.ApiViewModelFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import retrofit2.Response
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
-    private lateinit var adapter: MainAdapter
-    private lateinit var viewModel: MyViewModel
-    private var usersList = mutableListOf<User>()
+    private lateinit var viewModel: ApiViewModel
+    private val TAG = "MyActivity"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,45 +32,36 @@ class MainActivity : AppCompatActivity() {
         //setContentView(R.layout.activity_main)
         setContentView(binding.root)
 
+        val repository = ApiRepository()
 
-        viewModel = ViewModelProvider(this).get()
+        val viewModelFactory = ApiViewModelFactory(repository)
 
-        initRecycler()
+        viewModel = ViewModelProvider(this, viewModelFactory).get(ApiViewModel::class.java)
 
-        observeData()
+        viewModel.searchByName(search = "luke")
 
-    }
+        viewModel.character.observe(this){ data ->
 
-    private fun initRecycler() {
+            Log.d("Response", data?.first()!!.name)
 
-        adapter = MainAdapter(usersList)
+            Log.d("Response", data?.first()!!.gender)
 
-        val manager = LinearLayoutManager(this)
+            Log.d("Response", data?.first()!!.birth )
 
-        val recyclerView = binding.recycler
+            Log.d("Response", data?.first()!!.height)
 
-        recyclerView.layoutManager = manager
+            Log.d("Response", data?.first()!!.mass)
 
-        recyclerView.adapter = adapter
+            Log.d("Response", data?.first()!!.eye)
 
-    }
+            Log.d("Response", data?.first()!!.hair)
 
-    private fun observeData() {
+            Log.d("Response", data?.first()!!.skin)
 
-        binding.shimmerViewContainer.startShimmer()
-
-        viewModel.listData.observe(this, Observer {
-
-            binding.shimmerViewContainer.stopShimmer()
-
-            binding.shimmerViewContainer.hideShimmer()
-
-            usersList.addAll(it)
-
-            adapter.notifyDataSetChanged()
-
-        })
+        }
 
     }
+
+
 
 }
