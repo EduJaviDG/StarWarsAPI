@@ -6,25 +6,13 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.example.mvvmrecycler.databinding.ActivityMainBinding
-import com.example.mvvmrecycler.viewmodel.ApiViewModel
-import androidx.lifecycle.ViewModelProvider
-import com.example.mvvmrecycler.data.api.APIService
-import com.example.mvvmrecycler.data.repository.ApiRepository
 import com.example.mvvmrecycler.domain.model.CharacterResponse
-import com.example.mvvmrecycler.domain.model.Characters
-import com.example.mvvmrecycler.domain.usecase.apiUseCase.SearchByNameCase
 import com.example.mvvmrecycler.resource.Resource
-import com.example.mvvmrecycler.viewmodel.ApiViewModelFactory
-import dagger.hilt.android.HiltAndroidApp
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import com.example.mvvmrecycler.viewmodel.ApiViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-@HiltAndroidApp
+
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding

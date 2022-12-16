@@ -1,6 +1,5 @@
 package com.example.mvvmrecycler.data.module
 
-import com.example.mvvmrecycler.data.api.APIService
 import com.example.mvvmrecycler.data.repository.ApiRepository
 import com.example.mvvmrecycler.data.repository.ApiRepositoryImpl
 import com.example.mvvmrecycler.util.Constants

@@ -4,15 +4,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mvvmrecycler.data.repository.ApiRepository
-import com.example.mvvmrecycler.domain.usecase.apiUseCase.SearchByNameCase
 import com.example.mvvmrecycler.domain.model.CharacterResponse
-import com.example.mvvmrecycler.domain.model.Characters
+import com.example.mvvmrecycler.domain.usecase.apiUseCase.SearchByNameCase
 import com.example.mvvmrecycler.resource.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import retrofit2.Call
-import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
