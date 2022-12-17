@@ -7,7 +7,7 @@ data class CharacterResponse(
     @SerializedName("count") var count: Int,
     @SerializedName("next")  var next: String?,
     @SerializedName("previous") var previous: String?,
-    @SerializedName("results") var result : List<Characters>,
+    @SerializedName("results") var result : List<Character>,
 
     )
 

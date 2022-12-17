@@ -5,12 +5,9 @@ import com.example.mvvmrecycler.domain.model.CharacterResponse
 import com.example.mvvmrecycler.resource.Resource
 import javax.inject.Inject
 
-class SearchByNameCase @Inject constructor(private val repository: ApiRepository) {
+class SearchCase @Inject constructor(private val repository: ApiRepository) {
 
-    suspend fun  searchCase(search: String): Resource<CharacterResponse>{
-
-       return repository.getcharacterByName(search)
-
-    }
+    suspend fun searchByName(search: String): Resource<CharacterResponse> =
+        repository.getcharacterByName(search)
 
 }

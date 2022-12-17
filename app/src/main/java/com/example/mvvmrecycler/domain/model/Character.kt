@@ -2,7 +2,7 @@ package com.example.mvvmrecycler.domain.model
 
 import com.google.gson.annotations.SerializedName
 
-data class Characters (
+data class Character (
 
         @SerializedName("name") var name: String,
         @SerializedName("height") var height: String,
