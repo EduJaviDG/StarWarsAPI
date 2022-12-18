@@ -6,6 +6,6 @@ data class StarShipResponse(
 
     @SerializedName("name") val name: String,
     @SerializedName("model") val model: String,
-    @SerializedName("manufacture") val manufacturer: String,
+    @SerializedName("manufacturer") val manufacturer: String,
 
     )

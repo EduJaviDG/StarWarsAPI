@@ -5,6 +5,7 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="16dp"
+    android:elevation="10dp"
     android:layout_margin="16dp"
     android:layout_marginVertical="8dp">
 
@@ -12,45 +13,353 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/ivCircleImage"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        tools:background="@color/black"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
-
-    </de.hdodenhof.circleimageview.CircleImageView>
-
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:text="Title"
+        tools:text="Luke Skywalker"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ivCircleImage"
-        android:layout_marginStart="15dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="15dp"
         android:fontFamily="sans-serif"
-        android:textSize="21sp"
+        android:textSize="30sp"
         android:textStyle="bold"
-        android:textColor="@color/black">
-
-    </TextView>
+        android:textColor="@color/black"/>
 
     <TextView
-        android:id="@+id/tvDescription"
+        android:id="@+id/tvHeight"
         android:layout_height="wrap_content"
-        android:layout_width="180dp"
-        android:layout_marginStart="15dp"
-        tools:text="height: 202, mass: 136, hair_color: none, skin_color: white, eye_color: yellow, birth_year: 41.9BBY, gender: male"
+        android:layout_width="wrap_content"
+        android:text="Height:"
         app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-        app:layout_constraintStart_toEndOf="@+id/ivCircleImage"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
         android:fontFamily="sans-serif"
-        android:textSize="16sp"
-        android:textStyle="italic"
-        android:textColor="@color/black">
-    </TextView>
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+    <TextView
+        android:id="@+id/tvHeightData"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        tools:text="174"
+        app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+        app:layout_constraintStart_toEndOf="@id/tvHeight"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
 
+    <TextView
+        android:id="@+id/tvMass"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Weight:"
+        app:layout_constraintTop_toBottomOf="@+id/tvHeight"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tvMassData"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        tools:text="74"
+        app:layout_constraintTop_toBottomOf="@+id/tvHeightData"
+        app:layout_constraintStart_toEndOf="@id/tvMass"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tvSkin"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        tools:text="Skin Color"
+        app:layout_constraintTop_toBottomOf="@+id/tvMass"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tvSkinData"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        tools:text="White"
+        app:layout_constraintTop_toBottomOf="@+id/tvMassData"
+        app:layout_constraintStart_toEndOf="@id/tvSkin"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tvHair"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Hair Color:"
+        app:layout_constraintTop_toBottomOf="@+id/tvSkin"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tvHairData"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        tools:text="Blonde"
+        app:layout_constraintTop_toBottomOf="@+id/tvSkinData"
+        app:layout_constraintStart_toEndOf="@id/tvHair"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+
+    <TextView
+        android:id="@+id/tvEye"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Eye Color:"
+        app:layout_constraintTop_toBottomOf="@+id/tvHair"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tvEyeData"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        tools:text="Blue"
+        app:layout_constraintTop_toBottomOf="@+id/tvHairData"
+        app:layout_constraintStart_toEndOf="@id/tvEye"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tvBirthday"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Birthday:"
+        app:layout_constraintTop_toBottomOf="@+id/tvEye"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tvBirthdayData"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        tools:text="19BBY"
+        app:layout_constraintTop_toBottomOf="@+id/tvEyeData"
+        app:layout_constraintStart_toEndOf="@id/tvBirthday"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tvGender"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Gender:"
+        app:layout_constraintTop_toBottomOf="@+id/tvBirthday"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tvGenderData"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        tools:text="Masculine"
+        app:layout_constraintTop_toBottomOf="@+id/tvBirthdayData"
+        app:layout_constraintStart_toEndOf="@id/tvBirthday"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tvPlanet"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Planet:"
+        app:layout_constraintTop_toBottomOf="@+id/tvGender"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+    <TextView
+        android:id="@+id/tvPlanetData"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        tools:text="Tattoine"
+        app:layout_constraintTop_toBottomOf="@+id/tvGenderData"
+        app:layout_constraintStart_toEndOf="@id/tvPlanet"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tvSpecie"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Specie:"
+        app:layout_constraintTop_toBottomOf="@+id/tvPlanet"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+    <TextView
+        android:id="@+id/tvSpecieData"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        tools:text="Human"
+        app:layout_constraintTop_toBottomOf="@+id/tvPlanetData"
+        app:layout_constraintStart_toEndOf="@id/tvSpecie"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tvLanguage"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Language:"
+        app:layout_constraintTop_toBottomOf="@+id/tvSpecie"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tvLanguageData"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        tools:text="English"
+        app:layout_constraintTop_toBottomOf="@+id/tvSpecieData"
+        app:layout_constraintStart_toEndOf="@id/tvLanguage"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tvVehicle"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="Vehicles:"
+        app:layout_constraintTop_toBottomOf="@+id/tvLanguage"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tvVehicleData"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        tools:text="Snowspeeder, \n Imperial Speeder Bike"
+        app:layout_constraintTop_toBottomOf="@+id/tvLanguageData"
+        app:layout_constraintStart_toEndOf="@id/tvVehicle"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tvStarShip"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:text="StarShips:"
+        app:layout_constraintTop_toBottomOf="@+id/tvVehicle"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="45dp"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/tvStarShipData"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        tools:text="Imperial shuttle, \n X-wing"
+        app:layout_constraintTop_toBottomOf="@+id/tvVehicleData"
+        app:layout_constraintStart_toEndOf="@id/tvStarShip"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="25dp"
+        android:fontFamily="sans-serif"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/black"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

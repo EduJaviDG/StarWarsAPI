@@ -6,7 +6,7 @@ data class VehicleResponse(
 
     @SerializedName("name") val name: String,
     @SerializedName("model") val model: String,
-    @SerializedName("manufacture") val manufacturer: String,
+    @SerializedName("manufacturer") val manufacturer: String,
 
     )
 

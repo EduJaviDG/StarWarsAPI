@@ -3,7 +3,7 @@ package com.example.mvvmrecycler.domain.model
 import android.app.Activity
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
-import com.example.mvvmrecycler.util.Constants
+
 
 class Shared(activity: Activity, key: String): SharedPreferences {
 
@@ -24,6 +24,11 @@ class Shared(activity: Activity, key: String): SharedPreferences {
 
         }
 
+    }
+
+    fun getExtraString(): String? {
+
+        return sharedPreferences.getString(keyShared,"")
 
     }
 
@@ -61,7 +66,7 @@ class Shared(activity: Activity, key: String): SharedPreferences {
 
     override fun edit(): SharedPreferences.Editor {
 
-        TODO("Not yet implemented")
+       return sharedPreferences.edit()
 
     }
 

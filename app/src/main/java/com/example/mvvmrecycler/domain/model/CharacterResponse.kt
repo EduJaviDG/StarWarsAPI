@@ -4,10 +4,10 @@ import com.google.gson.annotations.SerializedName
 
 data class CharacterResponse(
 
-    @SerializedName("count") var count: Int,
-    @SerializedName("next")  var next: String?,
-    @SerializedName("previous") var previous: String?,
-    @SerializedName("results") var result : List<Character>,
+    @SerializedName("count") val count: Int,
+    @SerializedName("next")  val next: String?,
+    @SerializedName("previous") val previous: String?,
+    @SerializedName("results") val result : List<Character>,
 
     )
 

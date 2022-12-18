@@ -10,16 +10,16 @@ interface APIService {
   @GET("people/")
   suspend fun getCharacterByName(@Query("search") search: String): CharacterResponse
 
-  @GET("starship/{number}")
+  @GET("starships/{number}")
   suspend fun getStarship(@Path("number") starship: String): StarShipResponse
 
-  @GET("specie/{number}")
+  @GET("species/{number}")
   suspend fun getSpecie(@Path("number") specie: String): SpecieResponse
 
-  @GET("vehicle/{number}")
+  @GET("vehicles/{number}")
   suspend fun getVehicle(@Path("number") vehicle: String): VehicleResponse
 
-  @GET("homeworld/{number}")
+  @GET("planets/{number}")
   suspend fun getPlanet(@Path("number") homeworld: String): PlanetResponse
 
 }

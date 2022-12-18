@@ -11,8 +11,8 @@ data class Planet (
     val terrain: String,
     val surface_water: String,
     val population: String,
-    val residents: List<String>,
-    val films: List<String>,
+    var residents: List<String>,
+    var films: List<String>,
     val created: String,
     val edited: String,
     val url: String
