@@ -7,7 +7,6 @@ import javax.inject.Inject
 
 class SearchCase @Inject constructor(private val repository: ApiRepository) {
 
-    suspend fun searchByName(search: String): Resource<CharacterResponse> =
-        repository.getcharacterByName(search)
+    suspend fun searchByName(search: String) = repository.getcharacterByName(search)
 
 }

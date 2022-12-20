@@ -1,5 +1,7 @@
 package com.example.mvvmrecycler.domain.usecase.apiUseCase
 import com.example.mvvmrecycler.data.repository.ApiRepository
+import com.example.mvvmrecycler.domain.model.SpecieResponse
+import retrofit2.Response
 import javax.inject.Inject
 
 class SpecieCase @Inject constructor(private val repository: ApiRepository) {

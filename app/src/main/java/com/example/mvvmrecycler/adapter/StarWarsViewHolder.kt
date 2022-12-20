@@ -33,9 +33,9 @@ class StarWarsViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
 
         binding.tvLanguageData.text = item.language
 
-        binding.tvVehicleData.text = item.vehicles.first()
+        binding.tvVehicleData.text = item.vehicles
 
-        binding.tvStarShip.text = item.starShips.first()
+        binding.tvStarShipData.text = item.starShips
 
     }
 

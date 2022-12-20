@@ -1,5 +1,6 @@
 package com.example.mvvmrecycler.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -42,6 +43,7 @@ class ApiViewModel @Inject constructor(
 
     val specie: LiveData<Resource<SpecieResponse>> = _specie
 
+
     fun searchByName(search: String) = viewModelScope.launch {
 
         _character.value = Resource.inProgress
@@ -70,8 +72,6 @@ class ApiViewModel @Inject constructor(
         val result = starShipCase.getStarShip(starShip)
 
         _starShip.value = result
-
-
     }
 
     fun getPlanet(planet: String) = viewModelScope.launch {
@@ -81,7 +81,6 @@ class ApiViewModel @Inject constructor(
         val result = planetCase.getPlanet(planet)
 
         _planet.value = result
-
 
     }
 

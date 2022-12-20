@@ -1,19 +1,19 @@
 package com.example.mvvmrecycler.ui
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
-import android.widget.LinearLayout
-import android.widget.SearchView
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mvvmrecycler.adapter.StarWarsAdapter
 import com.example.mvvmrecycler.databinding.ActivityMainBinding
 import com.example.mvvmrecycler.domain.model.*
 import com.example.mvvmrecycler.resource.Resource
-import com.example.mvvmrecycler.util.Constants
 import com.example.mvvmrecycler.viewmodel.ApiViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,15 +25,17 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private lateinit var adapter: StarWarsAdapter
     private var listCharacter = mutableListOf<CharacterCard>()
     private val apiViewModel by viewModels<ApiViewModel>()
-    private val mapAttribute = mutableMapOf<String,String>()
-    private val listVehicle = mutableListOf<String>()
-    private val listStarShip = mutableListOf<String>()
+    private lateinit var shared: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         //setContentView(R.layout.activity_main)
         setContentView(binding.root)
+
+        shared = this.getSharedPreferences("search_name", Context.MODE_PRIVATE)
+
+        binding.svSearch.setOnQueryTextListener(this)
 
         initRecycler()
 
@@ -57,20 +59,25 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private fun inflateRecycler() {
 
        val character = CharacterCard(
-           name = mapAttribute["name"].toString() ,
-           height = mapAttribute["height"].toString(),
-           mass = mapAttribute["mass"].toString() ,
-           hair = mapAttribute["hair"].toString() ,
-           skin = mapAttribute["skin"].toString(),
-           eye = mapAttribute["eye"].toString(),
-           birth = mapAttribute["birth"].toString(),
-           gender = mapAttribute["gender"].toString(),
-           homeworld = mapAttribute["planet"].toString(),
-           specie = mapAttribute["specie"].toString(),
-           language = mapAttribute["language"].toString(),
-           vehicles = listVehicle,
-           starShips = listStarShip
+
+           name = shared.getString("name","n/a").toString(),
+           height = shared.getString("height","n/a").toString(),
+           mass = shared.getString("mass","n/a").toString() ,
+           hair = shared.getString("hair","n/a").toString() ,
+           skin = shared.getString("skin","n/a").toString(),
+           eye = shared.getString("eye","n/a").toString(),
+           birth = shared.getString("birth","n/a").toString(),
+           gender = shared.getString("gender","n/a").toString(),
+           homeworld = shared.getString("planet","n/a").toString(),
+           specie = shared.getString("specie_name","n/a").toString(),
+           language = shared.getString("specie_language","n/a").toString(),
+           vehicles = "${shared.getString("vehicle0","n/a")},\n" +
+                   "${shared.getString("vehicle1","n/a")}",
+           starShips = "${shared.getString("starship0","n/a")},\n" +
+                   "${shared.getString("starship1","n/a")}"
        )
+
+        shared.edit().clear().apply()
 
         listCharacter.clear()
 
@@ -79,200 +86,228 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         adapter.notifyDataSetChanged()
 
     }
+
     private fun searchByName(name: String){
 
         apiViewModel.searchByName(name)
 
         val response = apiViewModel.character
 
-        response.observe(this) { action ->
+        response.observe(this, object: Observer<Resource<CharacterResponse>> {
 
-            when (action) {
+             val listVehicle = mutableListOf<String>()
+             val listStarShip = mutableListOf<String>()
 
-                is Resource.Error -> {
+            override fun onChanged(action: Resource<CharacterResponse>?) {
 
-                    Log.d("Response", "ERROR")
+                when (action) {
 
-                }
+                    is Resource.Error -> {
 
-                is Resource.Success -> {
-
-                    val data = action.result.result
-
-                    mapAttribute.put("name",data.first().name)
-
-                    mapAttribute.put("height",data.first().height)
-
-                    mapAttribute.put("mass",data.first().mass)
-
-                    mapAttribute.put("skin",data.first().skin)
-
-                    mapAttribute.put("hair",data.first().hair)
-
-                    mapAttribute.put("eye",data.first().eye)
-
-                    mapAttribute.put("birth",data.first().birth)
-
-                    mapAttribute.put("gender",data.first().gender)
-
-                    mapAttribute.put("planet",data.first().homeworld)
-
-                    Log.d("RESPONSE", data.first().name)
-                    Log.d("RESPONSE", data.first().gender)
-                    Log.d("RESPONSE", data.first().birth)
-                    Log.d("RESPONSE", data.first().height)
-                    Log.d("RESPONSE", data.first().mass)
-                    Log.d("RESPONSE", data.first().eye)
-                    Log.d("RESPONSE", data.first().hair)
-                    Log.d("RESPONSE", data.first().skin)
-
-                    val idPlanet = data.first().homeworld.filter { it.isDigit() }
-
-                    getPlanet(idPlanet)
-
-                    val checkSpecie = data.first().species
-
-                    if( !checkSpecie.isNullOrEmpty() ){
-
-                        checkSpecie.forEach { url ->
-
-                            val id = url?.filter { it.isDigit() }
-
-                            getSpecie(id!!)
-
-                        }
+                        Log.d("Response", "ERROR")
 
                     }
 
-                    val checkVehicle = data.first().vehicles
+                    is Resource.Success -> {
 
-                    if( !checkVehicle.isNullOrEmpty() ){
+                        val data = action.result.result
 
-                        var countVehicle = 0
+                        with(shared.edit()){
 
-                        checkVehicle.forEach { url ->
+                            putString("name", data.first().name)
 
-                            val id = url.filter { it.isDigit() }
+                            putString("height", data.first().height)
 
-                            getVehicle(id, countVehicle)
+                            putString("mass", data.first().mass)
 
-                            countVehicle++
+                            putString("skin",data.first().skin)
 
-                        }
+                            putString("hair",data.first().hair)
 
-                    }
+                            putString("eye", data.first().eye)
 
-                    val checkStarShip = data.first().starships
+                            putString("birth",data.first().birth)
 
-                    if( !checkStarShip.isNullOrEmpty() ){
+                            putString("gender", data.first().gender)
 
-                        var countStarShip = 0
-
-                        checkStarShip.forEach { url ->
-
-                            val id = url.filter { it.isDigit() }
-
-                            getStarShip(id, countStarShip)
-
-                            countStarShip++
+                            apply()
 
                         }
 
+                        val idPlanet = data.first().homeworld.filter { it.isDigit() }
+
+                        getPlanet(idPlanet)
+
+                        val checkSpecie = data.first().species
+
+                        if( !checkSpecie.isNullOrEmpty() ){
+
+                            checkSpecie.forEach { url ->
+
+                                val id = url?.filter { it.isDigit() }
+
+                                getSpecie(id!!)
+
+                            }
+
+                        }
+
+                        val checkVehicle = data.first().vehicles
+
+                        if( !checkVehicle.isNullOrEmpty() ){
+
+                            data.first().vehicles.forEach { url ->
+
+                                val id = url.filter { it.isDigit() }
+
+                                listVehicle.add(id)
+
+                            }
+
+                            getVehicle(listVehicle)
+
+                        }
+
+                        val checkStarShip = data.first().starships
+
+                        if( !checkStarShip.isNullOrEmpty() ){
+
+                            data.first().starships.forEach { url ->
+
+                                val id = url.filter { it.isDigit() }
+
+                                listStarShip.add(id)
+                            }
+
+                            getStarShip(listStarShip)
+
+                        }
+
+                        response.removeObserver(this)
+
                     }
 
+                    Resource.inProgress -> {
+
+                        Log.d("RESPONSE", "LOADING")
+
+                    }
                 }
 
-                Resource.inProgress -> {
-
-                    Log.d("RESPONSE", "LOADING")
-
-                }
             }
-        }
-
-
-
+        })
     }
 
     private fun getPlanet(id: String){
 
         apiViewModel.getPlanet(id)
 
-        val responsePlanet = apiViewModel.planet
+        val response = apiViewModel.planet
 
+        response.observe(this, object: Observer<Resource<PlanetResponse>>{
+            override fun onChanged(action: Resource<PlanetResponse>?) {
 
-        responsePlanet.observe(this){ action ->
+                when(action){
+                    is Resource.Error -> {  Log.d("Planet", "ERROR") }
+                    is Resource.Success -> {
 
-            when (action){
+                        with(shared.edit()){
 
-                is Resource.Error -> { Log.d("RESPONSE_PLANET", "ERROR") }
+                            putString("planet", action.result.name)
 
-                is Resource.Success -> {
+                            apply()
+                        }
 
-                    mapAttribute.put("planet",action.result.name)
+                        Log.d("Planet", action.result.name)
 
-
-                    Log.d("RESPONSE_PLANET", action.result.name)
-
+                    }
+                    Resource.inProgress -> { Log.d("Planet", "LOADING")}
                 }
-
-                Resource.inProgress -> { Log.d("RESPONSE_PLANET", "PROGRESS") }
-
             }
-
-        }
-
-
+        })
     }
 
-    private fun getVehicle(id: String, count: Int) {
+    private fun getVehicle(listId: List<String>) {
 
-        apiViewModel.getVehicle(id)
+        var countVehicle = 0
 
-        val response = apiViewModel.vehicle
+        listId.forEach{ id ->
 
-        response.observe(this){ action ->
+            apiViewModel.getVehicle(id)
 
-            when(action){
-                is Resource.Error -> { Log.d("RESPONSE_VEHICLE", "ERROR" ) }
+            val response = apiViewModel.vehicle
 
-                is Resource.Success -> {
+            response.observe(this, object: Observer<Resource<VehicleResponse>> {
+                override fun onChanged(action: Resource<VehicleResponse>?) {
 
-                    listVehicle.add(action.result.name)
+                    when(action){
 
-                    Log.d("RESPONSE_VEHICLE", action.result.name )
+                        is Resource.Error -> { Log.d("Vehicle", "ERROR")  }
+
+                        is Resource.Success -> {
+
+                            with(shared.edit()){
+
+                                putString("vehicle$countVehicle", action.result.name)
+
+                                apply()
+                            }
+
+                            countVehicle++
+
+                            response.removeObserver(this)
+                        }
+
+                        Resource.inProgress -> { Log.d("Vehicle", "LOADING") }
+
+                    }
 
                 }
-
-                Resource.inProgress -> { Log.d("RESPONSE_VEHICLE", "LOADING" ) }
-            }
-
+            })
         }
     }
 
-    private fun getStarShip(id: String, count: Int) {
+    private fun getStarShip(listId: List<String>) {
 
-        apiViewModel.getStarShip(id)
+        var countStarShip = 0
 
-        val response = apiViewModel.starShip
+        listId.forEach{ id ->
 
-        response.observe(this){ action ->
+            apiViewModel.getStarShip(id)
 
-            when(action){
+            val response = apiViewModel.starShip
 
-                is Resource.Error -> { Log.d("RESPONSE_STARSHIP", "ERROR" ) }
+            response.observe(this, object : Observer<Resource<StarShipResponse>> {
+                override fun onChanged(action: Resource<StarShipResponse>?) {
 
-                is Resource.Success -> {
+                    when (action) {
+                        is Resource.Error -> { Log.d("Starship", "ERROR")}
+                        is Resource.Success -> {
 
-                    listStarShip.add(action.result.name)
+                            Log.d("StarShip_Key", "starship$countStarShip")
 
-                    Log.d("RESPONSE_STARSHIP", action.result.name )
+                            Log.d("StarShip_Name", action.result.name)
+
+                            with(shared.edit()){
+
+                                putString("starship$countStarShip", action.result.name)
+
+                                apply()
+                            }
+
+                            countStarShip++
+
+                            response.removeObserver(this)
+
+                        }
+                        Resource.inProgress -> {Log.d("Starship", "LOADING")}
+
+                    }
+
 
                 }
 
-                Resource.inProgress -> { Log.d("RESPONSE_STARSHIP", "LOADING" ) }
-
-            }
+            })
 
         }
 
@@ -284,44 +319,49 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
         val response = apiViewModel.specie
 
-        response.observe(this){ action ->
+        response.observe(this, object: Observer<Resource<SpecieResponse>> {
+            override fun onChanged(action: Resource<SpecieResponse>?) {
 
-            when(action){
+                when (action) {
+                    is Resource.Error -> { Log.d("Specie", "ERROR")}
+                    is Resource.Success -> {
 
-                is Resource.Error -> { Log.d("RESPONSE_STARSHIP", "ERROR" ) }
+                        with(shared.edit()){
 
-                is Resource.Success -> {
+                            putString("specie_name", action.result.name)
 
-                    mapAttribute.put("specie", action.result.name)
+                            putString("specie_language", action.result.language)
 
-                    mapAttribute.put("language", action.result.language)
+                            apply()
+                        }
 
-                    Log.d("RESPONSE_STARSHIP", action.result.name)
+                        //response.removeObserver(this)
+                    }
+                    Resource.inProgress -> {Log.d("Specie", "LOADING")}
 
                 }
-
-                Resource.inProgress -> { Log.d("RESPONSE_STARSHIP", "LOADING" ) }
-
             }
 
-        }
-
+        })
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
 
-    if(!query.isNullOrEmpty()) {
+        if(query != null) {
 
-        searchByName(query!!)
+            searchByName(query)
 
-        inflateRecycler()
+            inflateRecycler()
 
+        }
+
+        return false
     }
-        return true
-    }
 
-    override fun onQueryTextChange(query: String?): Boolean {
-        TODO("Not yet implemented")
+    override fun onQueryTextChange(newText: String?): Boolean {
+
+        return false
+
     }
 
 

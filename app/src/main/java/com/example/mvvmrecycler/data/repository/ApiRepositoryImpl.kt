@@ -35,7 +35,7 @@ class ApiRepositoryImpl @Inject constructor(private val retrofit: Retrofit)  : A
             Resource.Success(result)
 
 
-        } catch (e: Exception) {
+        } catch(e: Exception) {
 
             Resource.Error(e)
 
@@ -53,11 +53,12 @@ class ApiRepositoryImpl @Inject constructor(private val retrofit: Retrofit)  : A
             Resource.Success(result)
 
 
-        } catch (e: Exception) {
+        } catch(e: Exception) {
 
             Resource.Error(e)
 
         }
+
 
 
     }
@@ -71,29 +72,33 @@ class ApiRepositoryImpl @Inject constructor(private val retrofit: Retrofit)  : A
             Resource.Success(result)
 
 
-        } catch(e:Exception){
+        } catch(e: Exception) {
 
             Resource.Error(e)
 
         }
 
+
+
     }
 
     override suspend fun getPlanet(homeworld: String): Resource<PlanetResponse> {
 
-            return try{
+        return try{
 
-                val result = retrofit.create(APIService::class.java).getPlanet(homeworld)
+            val result = retrofit.create(APIService::class.java).getPlanet(homeworld)
 
-                Resource.Success(result)
+            Resource.Success(result)
 
 
-            } catch(e: Exception){
+        } catch(e: Exception) {
 
-                Resource.Error(e)
+            Resource.Error(e)
 
-            }
+        }
+
 
     }
+
 
 }
