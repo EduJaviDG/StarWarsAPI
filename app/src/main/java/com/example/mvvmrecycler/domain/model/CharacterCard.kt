@@ -12,10 +12,10 @@ data class CharacterCard(
     val eye: String?,
     val birth: String?,
     val gender: String?,
-    val homeworld: String?,
-    val specie: String?,
-    val language: String?,
-    val vehicles: String?,
-    val starShips: String?
+    val homeworld: String? = null,
+    val specie: String? = null,
+    val language: String? = null,
+    val vehicles: String? = null,
+    val starShips: String? = null
 
     )

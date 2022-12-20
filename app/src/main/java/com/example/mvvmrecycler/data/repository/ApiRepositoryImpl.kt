@@ -79,26 +79,11 @@ class ApiRepositoryImpl @Inject constructor(private val retrofit: Retrofit)  : A
         }
 
 
-
     }
 
-    override suspend fun getPlanet(homeworld: String): Resource<PlanetResponse> {
+    override suspend fun getPlanet(homeworld: String) =
 
-        return try{
-
-            val result = retrofit.create(APIService::class.java).getPlanet(homeworld)
-
-            Resource.Success(result)
-
-
-        } catch(e: Exception) {
-
-            Resource.Error(e)
-
-        }
-
-
-    }
+        retrofit.create(APIService::class.java).getPlanet(homeworld)
 
 
 }

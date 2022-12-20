@@ -21,6 +21,6 @@ interface APIService {
   suspend fun getVehicle(@Path("number") vehicle: String): VehicleResponse
 
   @GET("planets/{number}")
-  suspend fun getPlanet(@Path("number") homeworld: String): PlanetResponse
+  suspend fun getPlanet(@Path("number") homeworld: String): Response<PlanetResponse>
 
 }

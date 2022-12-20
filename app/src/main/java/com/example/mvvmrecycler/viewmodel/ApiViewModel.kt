@@ -9,7 +9,11 @@ import com.example.mvvmrecycler.domain.model.*
 import com.example.mvvmrecycler.domain.usecase.apiUseCase.*
 import com.example.mvvmrecycler.resource.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -23,13 +27,13 @@ class ApiViewModel @Inject constructor(
 
 ): ViewModel() {
 
-    private var _character = MutableLiveData<Resource<CharacterResponse>>(null)
+    private var _character = MutableStateFlow<Resource<CharacterResponse>?>(null)
 
-    val character: LiveData<Resource<CharacterResponse>> = _character
+    val character: StateFlow<Resource<CharacterResponse>?> = _character
 
-    private var _planet = MutableLiveData<Resource<PlanetResponse>>(null)
+    private var _planet = MutableStateFlow<PlanetResponse?>(null)
 
-    val planet: LiveData<Resource<PlanetResponse>> = _planet
+    val planet: StateFlow<PlanetResponse?> = _planet
 
     private var _vehicle = MutableLiveData<Resource<VehicleResponse>>(null)
 
@@ -48,7 +52,7 @@ class ApiViewModel @Inject constructor(
 
         _character.value = Resource.inProgress
 
-        val result = searchCase.searchByName(search)
+        val result = withContext(Dispatchers.IO){searchCase.searchByName(search)}
 
         _character.value = result
 
@@ -76,11 +80,12 @@ class ApiViewModel @Inject constructor(
 
     fun getPlanet(planet: String) = viewModelScope.launch {
 
-        _planet.value = Resource.inProgress
+        val result = withContext(Dispatchers.IO){ planetCase.getPlanet(planet) }
 
-        val result = planetCase.getPlanet(planet)
+        if(result.isSuccessful){
 
-        _planet.value = result
+            _planet.value = result.body()
+        }
 
     }
 

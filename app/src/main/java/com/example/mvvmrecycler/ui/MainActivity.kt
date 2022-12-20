@@ -9,6 +9,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.Observer
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mvvmrecycler.adapter.StarWarsAdapter
 import com.example.mvvmrecycler.databinding.ActivityMainBinding
@@ -68,13 +69,13 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
            eye = shared.getString("eye","n/a").toString(),
            birth = shared.getString("birth","n/a").toString(),
            gender = shared.getString("gender","n/a").toString(),
-           homeworld = shared.getString("planet","n/a").toString(),
-           specie = shared.getString("specie_name","n/a").toString(),
-           language = shared.getString("specie_language","n/a").toString(),
-           vehicles = "${shared.getString("vehicle0","n/a")},\n" +
-                   "${shared.getString("vehicle1","n/a")}",
-           starShips = "${shared.getString("starship0","n/a")},\n" +
-                   "${shared.getString("starship1","n/a")}"
+           //homeworld = shared.getString("planet","n/a").toString(),
+           //specie = shared.getString("specie_name","n/a").toString(),
+           //language = shared.getString("specie_language","n/a").toString(),
+           //vehicles = "${shared.getString("vehicle0","n/a")},\n" +
+                   //"${shared.getString("vehicle1","n/a")}",
+           //starShips = "${shared.getString("starship0","n/a")},\n" +
+                   //"${shared.getString("starship1","n/a")}"
        )
 
         shared.edit().clear().apply()
@@ -89,16 +90,12 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private fun searchByName(name: String){
 
-        apiViewModel.searchByName(name)
+        lifecycleScope.launchWhenStarted {
+            apiViewModel.searchByName(name)
 
-        val response = apiViewModel.character
+            val response = apiViewModel.character
 
-        response.observe(this, object: Observer<Resource<CharacterResponse>> {
-
-             val listVehicle = mutableListOf<String>()
-             val listStarShip = mutableListOf<String>()
-
-            override fun onChanged(action: Resource<CharacterResponse>?) {
+            response.collect{ action ->
 
                 when (action) {
 
@@ -112,78 +109,24 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
                         val data = action.result.result
 
-                        with(shared.edit()){
+                        val idPlanet = data.first().homeworld
 
-                            putString("name", data.first().name)
+                        val character = CharacterCard(
 
-                            putString("height", data.first().height)
+                            name = data.first().name,
+                            height =  data.first().height,
+                            mass = data.first().mass,
+                            hair = data.first().skin,
+                            skin = data.first().hair,
+                            eye = data.first().eye,
+                            birth = data.first().birth,
+                            gender = data.first().gender,)
 
-                            putString("mass", data.first().mass)
+                        listCharacter.clear()
 
-                            putString("skin",data.first().skin)
+                        listCharacter.add(character)
 
-                            putString("hair",data.first().hair)
-
-                            putString("eye", data.first().eye)
-
-                            putString("birth",data.first().birth)
-
-                            putString("gender", data.first().gender)
-
-                            apply()
-
-                        }
-
-                        val idPlanet = data.first().homeworld.filter { it.isDigit() }
-
-                        getPlanet(idPlanet)
-
-                        val checkSpecie = data.first().species
-
-                        if( !checkSpecie.isNullOrEmpty() ){
-
-                            checkSpecie.forEach { url ->
-
-                                val id = url?.filter { it.isDigit() }
-
-                                getSpecie(id!!)
-
-                            }
-
-                        }
-
-                        val checkVehicle = data.first().vehicles
-
-                        if( !checkVehicle.isNullOrEmpty() ){
-
-                            data.first().vehicles.forEach { url ->
-
-                                val id = url.filter { it.isDigit() }
-
-                                listVehicle.add(id)
-
-                            }
-
-                            getVehicle(listVehicle)
-
-                        }
-
-                        val checkStarShip = data.first().starships
-
-                        if( !checkStarShip.isNullOrEmpty() ){
-
-                            data.first().starships.forEach { url ->
-
-                                val id = url.filter { it.isDigit() }
-
-                                listStarShip.add(id)
-                            }
-
-                            getStarShip(listStarShip)
-
-                        }
-
-                        response.removeObserver(this)
+                        adapter.notifyDataSetChanged()
 
                     }
 
@@ -193,9 +136,8 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
                     }
                 }
-
             }
-        })
+        }
     }
 
     private fun getPlanet(id: String){
@@ -351,7 +293,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
             searchByName(query)
 
-            inflateRecycler()
+            //inflateRecycler()
 
         }
 

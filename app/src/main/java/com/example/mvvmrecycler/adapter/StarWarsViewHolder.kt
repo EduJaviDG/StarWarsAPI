@@ -27,15 +27,15 @@ class StarWarsViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
 
         binding.tvGenderData.text = item.gender
 
-        binding.tvPlanetData.text = item.homeworld
+        //binding.tvPlanetData.text = item.homeworld
 
-        binding.tvSpecieData.text = item.specie
+        //binding.tvSpecieData.text = item.specie
 
-        binding.tvLanguageData.text = item.language
+        //binding.tvLanguageData.text = item.language
 
-        binding.tvVehicleData.text = item.vehicles
+        //binding.tvVehicleData.text = item.vehicles
 
-        binding.tvStarShipData.text = item.starShips
+        //binding.tvStarShipData.text = item.starShips
 
     }
 
