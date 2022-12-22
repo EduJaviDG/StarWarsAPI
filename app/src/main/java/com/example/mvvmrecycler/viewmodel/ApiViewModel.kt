@@ -31,9 +31,9 @@ class ApiViewModel @Inject constructor(
 
     val character: StateFlow<Resource<CharacterResponse>?> = _character
 
-    private var _planet = MutableStateFlow<PlanetResponse?>(null)
+    private var _planet = MutableStateFlow<Resource<PlanetResponse>?>(null)
 
-    val planet: StateFlow<PlanetResponse?> = _planet
+    val planet: StateFlow<Resource<PlanetResponse>?> = _planet
 
     private var _vehicle = MutableLiveData<Resource<VehicleResponse>>(null)
 
@@ -43,9 +43,9 @@ class ApiViewModel @Inject constructor(
 
     val starShip: LiveData<Resource<StarShipResponse>> = _starShip
 
-    private var _specie = MutableLiveData<Resource<SpecieResponse>>(null)
+    private var _specie = MutableStateFlow<Resource<SpecieResponse>?>(null)
 
-    val specie: LiveData<Resource<SpecieResponse>> = _specie
+    val specie: StateFlow<Resource<SpecieResponse>?> = _specie
 
 
     fun searchByName(search: String) = viewModelScope.launch {
@@ -66,7 +66,6 @@ class ApiViewModel @Inject constructor(
 
         _vehicle.value = result
 
-
     }
 
     fun getStarShip(starShip: String) = viewModelScope.launch {
@@ -80,12 +79,11 @@ class ApiViewModel @Inject constructor(
 
     fun getPlanet(planet: String) = viewModelScope.launch {
 
+        _planet.value = Resource.inProgress
+
         val result = withContext(Dispatchers.IO){ planetCase.getPlanet(planet) }
 
-        if(result.isSuccessful){
-
-            _planet.value = result.body()
-        }
+        _planet.value = result
 
     }
 

@@ -3,9 +3,21 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.17447916666666666" />
+        <entry key="app/src/main/res/drawable/ic_logo_star_war.xml" value="0.1265" />
+        <entry key="app/src/main/res/drawable/ic_logo_star_war_2.xml" value="0.1265" />
+        <entry key="app/src/main/res/drawable/ic_logo_star_war_gold.xml" value="0.1265" />
+        <entry key="app/src/main/res/drawable/ic_millennium_falcon.xml" value="0.1865" />
+        <entry key="app/src/main/res/drawable/ic_spece_ship.xml" value="0.1565" />
+        <entry key="app/src/main/res/drawable/icon_millenium.xml" value="0.1265" />
+        <entry key="app/src/main/res/drawable/icon_ship.xml" value="0.15" />
+        <entry key="app/src/main/res/drawable/image_card.xml" value="0.1265" />
+        <entry key="app/src/main/res/drawable/img_card.xml" value="0.16" />
+        <entry key="app/src/main/res/drawable/input_info.xml" value="0.14" />
+        <entry key="app/src/main/res/drawable/input_name.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/input_search.xml" value="0.1265" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2" />
         <entry key="app/src/main/res/layout/item_load.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/item_recycler.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/item_recycler.xml" value="0.1" />
       </map>
     </option>
   </component>

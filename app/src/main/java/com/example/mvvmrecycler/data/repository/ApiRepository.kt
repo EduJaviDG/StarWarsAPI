@@ -22,7 +22,7 @@ interface ApiRepository {
     suspend fun getVehicle(vehicle: String): Resource<VehicleResponse>
 
 
-    suspend fun getPlanet(homeworld: String): Response<PlanetResponse>
+    suspend fun getPlanet(homeworld: String): Resource<PlanetResponse>
 
 
 }

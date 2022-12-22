@@ -17,25 +17,17 @@ class StarWarsViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
 
         binding.tvMassData.text = item.mass
 
-        binding.tvHairData.text = item.hair
+        binding.tvHairData.text = item.hair.replaceFirstChar { it.titlecase() }
 
-        binding.tvSkinData.text = item.skin
+        binding.tvSkinData.text = item.skin.replaceFirstChar { it.titlecase() }
 
-        binding.tvEyeData.text = item.eye
+        binding.tvEyeData.text = item.eye.replaceFirstChar { it.titlecase() }
 
         binding.tvBirthdayData.text = item.birth
 
-        binding.tvGenderData.text = item.gender
+        binding.tvGenderData.text = item.gender.replaceFirstChar { it.titlecase() }
 
-        //binding.tvPlanetData.text = item.homeworld
-
-        //binding.tvSpecieData.text = item.specie
-
-        //binding.tvLanguageData.text = item.language
-
-        //binding.tvVehicleData.text = item.vehicles
-
-        //binding.tvStarShipData.text = item.starShips
+        binding.tvPlanetData.text = item.homeworld.replaceFirstChar { it.titlecase() }
 
     }
 

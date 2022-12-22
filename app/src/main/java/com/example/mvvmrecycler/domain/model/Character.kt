@@ -14,9 +14,9 @@ data class Character (
         @SerializedName("gender") val gender: String,
         @SerializedName("homeworld") val homeworld: String,
         @SerializedName("films") val films: List<String>,
-        @SerializedName("species") var species: List<String?>,
-        @SerializedName("vehicles") var vehicles: List<String>,
-        @SerializedName("starships") var starships: List<String>,
+        @SerializedName("species") var species: List<String>,
+        @SerializedName("vehicles") var vehicles: List<String?>,
+        @SerializedName("starships") var starships: List<String?>,
         @SerializedName("created") val created: String,
         @SerializedName("edited") val edited: String,
         @SerializedName("url") val url: String
