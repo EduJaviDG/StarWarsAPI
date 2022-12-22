@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">mvvmRecycler</string>
+    <string name="app_name">StarWars API</string>
+    <string name="url">https://swapi.dev/api/</string>
 </resources>
