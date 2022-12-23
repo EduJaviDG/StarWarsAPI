@@ -12,6 +12,7 @@ data class CharacterCard(
     val eye: String,
     val birth: String,
     val gender: String,
-    val homeworld: String
+    val homeworld: String,
+    var isExnpaded: Boolean = false
 
     )

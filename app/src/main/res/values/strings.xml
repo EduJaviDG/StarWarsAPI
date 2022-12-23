@@ -1,4 +1,4 @@
 <resources>
-    <string name="app_name">StarWars API</string>
+    <string name="app_name">StarWars</string>
     <string name="url">https://swapi.dev/api/</string>
 </resources>

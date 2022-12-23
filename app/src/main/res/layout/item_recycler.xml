@@ -6,17 +6,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardElevation="10dp"
     app:cardCornerRadius="16dp"
-    app:strokeColor="#1C015A"
+    app:strokeColor="@color/background"
     app:strokeWidth="3dp"
     android:layout_margin="16dp"
     android:layout_marginVertical="8dp"
-   app:cardBackgroundColor="#4D1C015A"
+    app:cardBackgroundColor="@color/backgroundTrans"
     >
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-
 
     <ImageView
         android:layout_width="40dp"
@@ -27,6 +26,7 @@
         android:layout_marginEnd="20dp"
         android:background="@drawable/icon_ship"
         />
+
     <ImageView
         android:layout_width="40dp"
         android:layout_height="40dp"
@@ -51,10 +51,11 @@
         android:textStyle="bold"
         android:textColor="@color/gold"
         android:background="@drawable/input_name"/>
+
     <View
         android:id="@+id/vwImg"
         android:layout_width="340dp"
-        android:layout_height="400dp"
+        android:layout_height="370dp"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,36 +63,51 @@
         android:layout_marginTop="15dp"
         android:background="@drawable/img_card"/>
 
-    <View
-        android:id="@+id/vwInfo"
+    <ImageView
+        android:id="@+id/ivDropDown"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:layout_constraintTop_toBottomOf="@id/vwImg"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/icon_drop"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvInfo"
         android:layout_width="340dp"
         android:layout_height="165dp"
-        app:layout_constraintTop_toBottomOf="@id/vwImg"
+        app:layout_constraintTop_toBottomOf="@id/ivDropDown"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_marginBottom="15dp"
-        android:layout_marginTop="15dp"
-        android:background="@drawable/input_info"
-        >
-    </View>
+        android:layout_marginTop="5dp"
+        app:strokeWidth="3dp"
+        app:strokeColor="@color/whiteTrans"
+        app:cardCornerRadius="20dp"
+        app:cardBackgroundColor="#4D000000">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
 
     <ImageView
         android:layout_width="25dp"
         android:layout_height="25dp"
-        app:layout_constraintTop_toTopOf="@+id/vwInfo"
-        app:layout_constraintEnd_toEndOf="@id/vwInfo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="15dp"
         android:layout_marginRight="15dp"
-        android:src="@drawable/light_saber"
-        />
+        android:src="@drawable/light_saber"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.5" />
+        app:layout_constraintGuide_percent="0.5"/>
 
     <TextView
         android:id="@+id/tvHeight"
@@ -104,14 +120,14 @@
         android:textColor="@color/white"
         android:textSize="11sp"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="@id/vwInfo"
-        app:layout_constraintTop_toTopOf="@+id/vwInfo" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
     <TextView
         android:id="@+id/tvHeightData"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         tools:text="174"
-        app:layout_constraintTop_toTopOf="@+id/vwInfo"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/tvHeight"
         android:layout_marginStart="5dp"
         android:layout_marginTop="25dp"
@@ -125,7 +141,7 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         android:text="· Weight:"
-        app:layout_constraintTop_toTopOf="@id/vwInfo"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@+id/guideline"
         android:layout_marginStart="25dp"
         android:layout_marginTop="25dp"
@@ -139,7 +155,7 @@
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
         tools:text="1,358"
-        app:layout_constraintTop_toTopOf="@+id/vwInfo"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/tvMass"
         android:layout_marginStart="5dp"
         android:layout_marginTop="25dp"
@@ -154,7 +170,7 @@
         android:layout_width="wrap_content"
         android:text="· Skin Color:"
         app:layout_constraintTop_toBottomOf="@+id/tvHeight"
-        app:layout_constraintStart_toStartOf="@id/vwInfo"
+        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="25dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/beleren2016_bold"
@@ -211,7 +227,7 @@
         android:layout_width="wrap_content"
         android:text="· Eye Color:"
         app:layout_constraintTop_toBottomOf="@+id/tvSkin"
-        app:layout_constraintStart_toStartOf="@id/vwInfo"
+        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="25dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/beleren2016_bold"
@@ -267,7 +283,7 @@
         android:layout_width="wrap_content"
         android:text="· Gender:"
         app:layout_constraintTop_toBottomOf="@+id/tvEye"
-        app:layout_constraintStart_toStartOf="@id/vwInfo"
+        app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="25dp"
         android:layout_marginTop="17dp"
         android:fontFamily="@font/beleren2016_bold"
@@ -317,6 +333,10 @@
         android:textSize="12sp"
         android:textStyle="bold"
         android:textColor="@color/white"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
