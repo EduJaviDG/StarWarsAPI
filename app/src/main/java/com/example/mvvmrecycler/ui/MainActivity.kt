@@ -3,17 +3,25 @@ package com.example.mvvmrecycler.ui
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Log
+import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.mvvmrecycler.R
 import com.example.mvvmrecycler.adapter.StarWarsAdapter
 import com.example.mvvmrecycler.databinding.ActivityMainBinding
+import com.example.mvvmrecycler.domain.model.Alert
 import com.example.mvvmrecycler.domain.model.CharacterCard
 import com.example.mvvmrecycler.resource.Resource
 import com.example.mvvmrecycler.viewmodel.ApiViewModel
+import com.example.mvvmrecycler.viewmodel.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.flatMapConcat
 
@@ -26,10 +34,13 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private var listCharacter = mutableListOf<CharacterCard>()
     private val apiViewModel by viewModels<ApiViewModel>()
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
+
         super.onCreate(savedInstanceState)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
-        //setContentView(R.layout.activity_main)
+
         setContentView(binding.root)
 
         supportActionBar?.hide()
@@ -43,7 +54,13 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private fun initRecycler(){
 
-        adapter = StarWarsAdapter(listCharacter)
+        Alert.showWelcome(this)
+
+        adapter = StarWarsAdapter(listCharacter){ character,position ->
+
+                onClickListener(character,position)
+
+        }
 
         val manager = LinearLayoutManager(this)
 
@@ -55,11 +72,21 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     }
 
+    private fun onClickListener(character:CharacterCard, position: Int){
+
+        character.isExnpaded = true
+
+        adapter.notifyItemChanged(position)
+
+    }
+
     private fun searchByName(name: String){
+
+        val reName = name.lowercase()
 
         lifecycleScope.launchWhenStarted {
 
-            apiViewModel.searchByName(name)
+            apiViewModel.searchByName(reName)
 
             val response = apiViewModel.character
 
@@ -69,11 +96,13 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
                     is Resource.Error -> {
 
-                        Log.d("Response", "ERROR")
+                        Alert.showError(this@MainActivity)
 
                     }
 
                     is Resource.Success -> {
+
+                        showShimmer()
 
                         val data = action.result.result
 
@@ -113,6 +142,12 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
                                     adapter.notifyDataSetChanged()
 
+                                    Handler(Looper.getMainLooper()).postDelayed({
+
+                                        showData()
+
+                                    },3000)
+
                                 }
                                 Resource.inProgress -> {Log.d("Planet", "LOADING")}
                             }
@@ -143,6 +178,23 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     override fun onQueryTextChange(newText: String?): Boolean {
 
         return false
+
+    }
+
+    private fun showShimmer(){
+
+        binding.shimmerViewContainer.visibility = View.VISIBLE
+
+        binding.recycler.isVisible= false
+
+
+    }
+
+    private fun showData(){
+
+        binding.shimmerViewContainer.visibility = View.GONE
+
+        binding.recycler.isVisible = true
 
     }
 

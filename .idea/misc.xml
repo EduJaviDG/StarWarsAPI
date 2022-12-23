@@ -3,21 +3,30 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="app/src/main/res/drawable/alert_welcome.xml" value="0.15" />
+        <entry key="app/src/main/res/drawable/ic_drop_down.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1165" />
         <entry key="app/src/main/res/drawable/ic_logo_star_war.xml" value="0.1265" />
         <entry key="app/src/main/res/drawable/ic_logo_star_war_2.xml" value="0.1265" />
         <entry key="app/src/main/res/drawable/ic_logo_star_war_gold.xml" value="0.1265" />
         <entry key="app/src/main/res/drawable/ic_millennium_falcon.xml" value="0.1865" />
         <entry key="app/src/main/res/drawable/ic_spece_ship.xml" value="0.1565" />
+        <entry key="app/src/main/res/drawable/icon_drop.xml" value="0.153" />
         <entry key="app/src/main/res/drawable/icon_millenium.xml" value="0.1265" />
         <entry key="app/src/main/res/drawable/icon_ship.xml" value="0.15" />
         <entry key="app/src/main/res/drawable/image_card.xml" value="0.1265" />
         <entry key="app/src/main/res/drawable/img_card.xml" value="0.16" />
+        <entry key="app/src/main/res/drawable/img_card_load.xml" value="0.1125" />
         <entry key="app/src/main/res/drawable/input_info.xml" value="0.14" />
         <entry key="app/src/main/res/drawable/input_name.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/input_name_load.xml" value="0.1125" />
         <entry key="app/src/main/res/drawable/input_search.xml" value="0.1265" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.2" />
-        <entry key="app/src/main/res/layout/item_load.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/item_recycler.xml" value="0.1" />
+        <entry key="app/src/main/res/drawable/input_search_load.xml" value="0.1125" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="app/src/main/res/layout/item_load.xml" value="0.15545196533203126" />
+        <entry key="app/src/main/res/layout/item_recycler.xml" value="0.22" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.1165" />
+        <entry key="app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1165" />
       </map>
     </option>
   </component>

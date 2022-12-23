@@ -17,7 +17,7 @@
                 android:color="@color/whiteTrans"
                 />
             <solid
-                android:color="#4D000000"
+                android:color="@color/blackTrans"
                 />
 
             <corners

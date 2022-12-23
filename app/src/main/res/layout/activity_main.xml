@@ -8,43 +8,45 @@
     android:background="@drawable/galaxy_3"
     >
 
-   <ImageView
-       android:id="@+id/vwLogoTop"
-       android:layout_width="300dp"
-       android:layout_height="100dp"
-       app:layout_constraintTop_toTopOf="parent"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintEnd_toEndOf="parent"
-       android:layout_marginTop="25dp"
-       android:src="@drawable/ic_logo_star_war_gold"
-       />
-
    <androidx.appcompat.widget.SearchView
        android:id="@+id/svSearch"
        android:layout_width="330dp"
        android:layout_height="50dp"
-       app:layout_constraintTop_toBottomOf="@+id/vwLogoTop"
+       app:layout_constraintTop_toTopOf="parent"
        app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintEnd_toEndOf="parent"
-       android:layout_marginTop="25dp"
+       android:layout_marginTop="10dp"
        android:background="@drawable/input_search"
+       android:theme="@style/SearchViewStyle"
        />
 
-   <!--<com.facebook.shimmer.ShimmerFrameLayout
+   <ImageView
+       android:id="@+id/ivLogo"
+       android:layout_width="300dp"
+       android:layout_height="200dp"
+       app:layout_constraintTop_toTopOf="parent"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       android:src="@drawable/ic_logo_star_war"/>
+
+   <com.facebook.shimmer.ShimmerFrameLayout
        android:id="@+id/shimmer_view_container"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:orientation="vertical">
+       android:orientation="vertical"
+       app:layout_constraintTop_toBottomOf="@+id/svSearch"
+       android:layout_marginTop="5dp"
+       android:visibility="gone"
+       >
       <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:orientation="vertical">
          <include layout="@layout/item_load"/>
-         <include layout="@layout/item_load"/>
-         <include layout="@layout/item_load"/>
       </LinearLayout>
 
-   </com.facebook.shimmer.ShimmerFrameLayout>-->
+   </com.facebook.shimmer.ShimmerFrameLayout>
 
    <androidx.recyclerview.widget.RecyclerView
        android:id="@+id/recycler"
@@ -52,8 +54,6 @@
        android:layout_height="0dp"
        app:layout_constraintTop_toBottomOf="@+id/svSearch"
        app:layout_constraintBottom_toBottomOf="parent"
-       android:layout_marginTop="15dp"/>
-
-
-
+       android:layout_marginTop="5dp"
+       />
 </androidx.constraintlayout.widget.ConstraintLayout>
