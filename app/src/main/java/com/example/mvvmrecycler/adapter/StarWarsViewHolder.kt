@@ -34,6 +34,10 @@ class StarWarsViewHolder(itemView: View):RecyclerView.ViewHolder(itemView) {
 
         binding.tvPlanetData.text = item.homeworld.replaceFirstChar { it.titlecase() }
 
+        binding.tvSpecieData.text = item.specie.replaceFirstChar { it.titlecase() }
+
+        binding.tvLanguageData.text = item.language.replaceFirstChar { it.titlecase() }
+
         itemView.setOnClickListener{
 
             onClickListener(item,position)

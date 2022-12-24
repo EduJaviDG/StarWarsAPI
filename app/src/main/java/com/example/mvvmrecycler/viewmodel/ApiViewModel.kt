@@ -12,8 +12,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import retrofit2.Response
 import javax.inject.Inject
 
 @HiltViewModel
@@ -21,65 +24,36 @@ class ApiViewModel @Inject constructor(
 
     private val searchCase: SearchCase,
     private val planetCase: PlanetCase,
-    private val vehicleCase: VehicleCase,
-    private val starShipCase: StarShipCase,
     private val specieCase: SpecieCase,
 
 ): ViewModel() {
 
-    private var _character = MutableStateFlow<Resource<CharacterResponse>?>(null)
+    private var _character = MutableStateFlow<List<Character>?>(null)
 
-    val character: StateFlow<Resource<CharacterResponse>?> = _character
+    val character: StateFlow<List<Character>?> = _character
 
-    private var _planet = MutableStateFlow<Resource<PlanetResponse>?>(null)
+    private var _planet = MutableStateFlow<List<PlanetResponse>?>(null)
 
-    val planet: StateFlow<Resource<PlanetResponse>?> = _planet
+    val planet: StateFlow<List<PlanetResponse>?> = _planet
 
-    private var _vehicle = MutableLiveData<Resource<VehicleResponse>>(null)
+    private var _specie = MutableStateFlow<List<SpecieResponse>?>(null)
 
-    val vehicle: LiveData<Resource<VehicleResponse>> = _vehicle
+    val specie: StateFlow<List<SpecieResponse>?> = _specie
 
-    private var _starShip = MutableLiveData<Resource<StarShipResponse>>(null)
-
-    val starShip: LiveData<Resource<StarShipResponse>> = _starShip
-
-    private var _specie = MutableStateFlow<Resource<SpecieResponse>?>(null)
-
-    val specie: StateFlow<Resource<SpecieResponse>?> = _specie
 
 
     fun searchByName(search: String) = viewModelScope.launch {
-
-        _character.value = Resource.inProgress
 
         val result = withContext(Dispatchers.IO){searchCase.searchByName(search)}
 
         _character.value = result
 
-    }
 
-    fun getVehicle(vehicle: String) = viewModelScope.launch {
+        Log.i("Response", _character.value.toString())
 
-        _vehicle.value = Resource.inProgress
-
-        val result = vehicleCase.getVehicle(vehicle)
-
-        _vehicle.value = result
-
-    }
-
-    fun getStarShip(starShip: String) = viewModelScope.launch {
-
-        _starShip.value = Resource.inProgress
-
-        val result = starShipCase.getStarShip(starShip)
-
-        _starShip.value = result
     }
 
     fun getPlanet(planet: String) = viewModelScope.launch {
-
-        _planet.value = Resource.inProgress
 
         val result = withContext(Dispatchers.IO){ planetCase.getPlanet(planet) }
 
@@ -87,12 +61,9 @@ class ApiViewModel @Inject constructor(
 
     }
 
-
     fun getSpecie(specie: String) = viewModelScope.launch {
 
-        _specie.value = Resource.inProgress
-
-        val result = specieCase.getSpecie(specie)
+        val result = withContext(Dispatchers.IO){ specieCase.getSpecie(specie) }
 
         _specie.value = result
 

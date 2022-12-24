@@ -1,5 +1,6 @@
 package com.example.mvvmrecycler.domain.model
 
+import com.example.mvvmrecycler.R
 import com.google.gson.annotations.SerializedName
 
 data class CharacterCard(
@@ -13,6 +14,8 @@ data class CharacterCard(
     val birth: String,
     val gender: String,
     val homeworld: String,
+    val specie: String = "Human",
+    val language: String = "Galactic Basic",
     var isExnpaded: Boolean = false
 
     )

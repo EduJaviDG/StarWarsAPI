@@ -54,7 +54,7 @@
 
     <View
         android:id="@+id/vwImg"
-        android:layout_width="340dp"
+        android:layout_width="346dp"
         android:layout_height="370dp"
         app:layout_constraintTop_toBottomOf="@id/tvTitle"
         app:layout_constraintStart_toStartOf="parent"
@@ -75,8 +75,8 @@
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/cvInfo"
-        android:layout_width="340dp"
-        android:layout_height="165dp"
+        android:layout_width="346dp"
+        android:layout_height="175dp"
         app:layout_constraintTop_toBottomOf="@id/ivDropDown"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -116,7 +116,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginTop="25dp"
         android:fontFamily="@font/beleren2016_bold"
-        android:text="· Height:"
+        android:text="@string/height"
         android:textColor="@color/white"
         android:textSize="11sp"
         android:textStyle="bold"
@@ -140,10 +140,10 @@
         android:id="@+id/tvMass"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="· Weight:"
+        android:text="@string/mass"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@+id/guideline"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="25dp"
         android:fontFamily="@font/beleren2016_bold"
         android:textSize="11sp"
@@ -168,7 +168,7 @@
         android:id="@+id/tvSkin"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="· Skin Color:"
+        android:text="@string/skin"
         app:layout_constraintTop_toBottomOf="@+id/tvHeight"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="25dp"
@@ -196,10 +196,10 @@
         android:id="@+id/tvHair"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="· Hair Color:"
+        android:text="@string/hair"
         app:layout_constraintTop_toBottomOf="@+id/tvMass"
         app:layout_constraintStart_toEndOf="@+id/guideline"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/beleren2016_bold"
         android:textSize="11sp"
@@ -225,7 +225,7 @@
         android:id="@+id/tvEye"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="· Eye Color:"
+        android:text="@string/eye"
         app:layout_constraintTop_toBottomOf="@+id/tvSkin"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="25dp"
@@ -253,10 +253,10 @@
         android:id="@+id/tvBirthday"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="· Birthday:"
+        android:text="@string/birthday"
         app:layout_constraintTop_toBottomOf="@+id/tvHair"
         app:layout_constraintStart_toEndOf="@+id/guideline"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/beleren2016_bold"
         android:textSize="11sp"
@@ -278,11 +278,11 @@
         android:textColor="@color/white"/>
 
     <TextView
-        android:id="@+id/tvGender"
+        android:id="@+id/tvSpecie"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="· Gender:"
-        app:layout_constraintTop_toBottomOf="@+id/tvEye"
+        android:text="@string/specie"
+        app:layout_constraintTop_toBottomOf="@+id/tvGender"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_marginStart="25dp"
         android:layout_marginTop="17dp"
@@ -292,12 +292,12 @@
         android:textColor="@color/white"/>
 
     <TextView
-        android:id="@+id/tvGenderData"
+        android:id="@+id/tvSpecieData"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        tools:text="Masculine"
-        app:layout_constraintTop_toBottomOf="@+id/tvEyeData"
-        app:layout_constraintStart_toEndOf="@id/tvGender"
+        tools:text="Human"
+        app:layout_constraintTop_toBottomOf="@+id/tvGenderData"
+        app:layout_constraintStart_toEndOf="@id/tvSpecie"
         android:layout_marginStart="5dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="15dp"
@@ -307,13 +307,13 @@
         android:textColor="@color/white"/>
 
     <TextView
-        android:id="@+id/tvPlanet"
+        android:id="@+id/tvLanguage"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:text="· Planet:"
-        app:layout_constraintTop_toBottomOf="@+id/tvBirthday"
+        android:text="@string/language"
+        app:layout_constraintTop_toBottomOf="@+id/tvPlanet"
         app:layout_constraintStart_toEndOf="@+id/guideline"
-        android:layout_marginStart="25dp"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="17dp"
         android:fontFamily="@font/beleren2016_bold"
         android:textSize="11sp"
@@ -321,18 +321,75 @@
         android:textColor="@color/white"/>
 
     <TextView
-        android:id="@+id/tvPlanetData"
+        android:id="@+id/tvLanguageData"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        tools:text="Tattoine"
-        app:layout_constraintTop_toBottomOf="@+id/tvBirthdayData"
-        app:layout_constraintStart_toEndOf="@id/tvPlanet"
+        tools:text="Galactic Basic"
+        app:layout_constraintTop_toBottomOf="@+id/tvPlanetData"
+        app:layout_constraintStart_toEndOf="@id/tvLanguage"
         android:layout_marginStart="5dp"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/beleren2016_bold"
         android:textSize="12sp"
         android:textStyle="bold"
         android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/tvGender"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/gender"
+                app:layout_constraintTop_toBottomOf="@+id/tvEye"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="17dp"
+                android:fontFamily="@font/beleren2016_bold"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/tvGenderData"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                tools:text="Masculine"
+                app:layout_constraintTop_toBottomOf="@+id/tvEyeData"
+                app:layout_constraintStart_toEndOf="@id/tvGender"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="15dp"
+                android:fontFamily="@font/beleren2016_bold"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/tvPlanet"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/planet"
+                app:layout_constraintTop_toBottomOf="@+id/tvBirthday"
+                app:layout_constraintStart_toEndOf="@+id/guideline"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="17dp"
+                android:fontFamily="@font/beleren2016_bold"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
+
+            <TextView
+                android:id="@+id/tvPlanetData"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                tools:text="Tattoine"
+                app:layout_constraintTop_toBottomOf="@+id/tvBirthdayData"
+                app:layout_constraintStart_toEndOf="@id/tvPlanet"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/beleren2016_bold"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                android:textColor="@color/white"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
