@@ -7,22 +7,22 @@ import com.example.mvvmrecycler.R
 
 abstract class Alert {
 
-    companion object{
+    companion object {
 
-        fun showWelcome(context: Context){
+        fun showWelcome(context: Context) {
 
             val builder = AlertDialog.Builder(context, R.style.AlertDialogStyle)
 
-            builder.setTitle("Welcome")
+            builder.setTitle(R.string.welcome)
 
-            builder.setMessage("Let's start, enter a valid name from the Star Wars " +
-                    "trilogy in the search engine.")
+            builder.setMessage(R.string.welcome_message)
 
-            builder.setPositiveButton("Accept",null)
+            builder.setPositiveButton("Accept", null)
 
             val dialog = builder.create().apply {
 
-                val backgroundDrawable = ContextCompat.getDrawable(context,R.drawable.alert_background)
+                val backgroundDrawable =
+                    ContextCompat.getDrawable(context, R.drawable.alert_welcome)
 
                 window?.setBackgroundDrawable(backgroundDrawable)
 
@@ -30,36 +30,65 @@ abstract class Alert {
 
             dialog.show()
 
-            val colorText = ContextCompat.getColor(context,R.color.gold)
+            val colorText = ContextCompat.getColor(context, R.color.gold)
 
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(colorText)
 
         }
 
-        fun showError(context: Context){
+        fun showError(context: Context) {
 
             val builder = AlertDialog.Builder(context, R.style.AlertDialogStyle)
 
-            builder.setTitle("Error")
+            builder.setTitle(R.string.error)
 
-            builder.setMessage("Please, enter a valid name from the Star Wars trilogy")
+            builder.setMessage(R.string.error_message)
 
-            builder.setPositiveButton("Accept",null)
+            builder.setPositiveButton("Accept", null)
 
             val dialog = builder.create().apply {
 
-                val backgroundDrawable = ContextCompat.getDrawable(context,R.drawable.alert_background)
+                val backgroundDrawable = ContextCompat.getDrawable(context, R.drawable.alert_error)
 
                 window?.setBackgroundDrawable(backgroundDrawable)
 
             }
 
+
             dialog.show()
 
-            val colorText = ContextCompat.getColor(context,R.color.gold)
+            val colorText = ContextCompat.getColor(context, android.R.color.holo_red_light)
 
             dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(colorText)
 
+
+        }
+
+
+        fun showConnect(context: Context) {
+
+            val builder = AlertDialog.Builder(context, R.style.AlertDialogStyle)
+
+            builder.setTitle(R.string.error)
+
+            builder.setMessage(R.string.error_connect)
+
+            builder.setPositiveButton("Accept", null)
+
+            val dialog = builder.create().apply {
+
+                val backgroundDrawable = ContextCompat.getDrawable(context, R.drawable.alert_error)
+
+                window?.setBackgroundDrawable(backgroundDrawable)
+
+            }
+
+
+            dialog.show()
+
+            val colorText = ContextCompat.getColor(context, android.R.color.holo_red_light)
+
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(colorText)
 
 
         }

@@ -1,28 +1,23 @@
 package com.example.mvvmrecycler.ui
 
-import android.content.Context
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.mvvmrecycler.R
 import com.example.mvvmrecycler.adapter.StarWarsAdapter
 import com.example.mvvmrecycler.databinding.ActivityMainBinding
 import com.example.mvvmrecycler.domain.model.Alert
 import com.example.mvvmrecycler.domain.model.CharacterCard
-import com.example.mvvmrecycler.resource.Resource
 import com.example.mvvmrecycler.viewmodel.ApiViewModel
-import com.example.mvvmrecycler.viewmodel.SplashViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.*
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.flatMapConcat
 
 
@@ -33,7 +28,6 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     private lateinit var adapter: StarWarsAdapter
     private var listCharacter = mutableListOf<CharacterCard>()
     private val apiViewModel by viewModels<ApiViewModel>()
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -72,6 +66,23 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     }
 
+    fun updateRecycler(character: CharacterCard){
+
+        listCharacter.clear()
+
+        listCharacter.add(character)
+
+        adapter.notifyDataSetChanged()
+
+        Handler(mainLooper).postDelayed({
+
+            showData()
+
+        },4500)
+
+
+    }
+
     private fun onClickListener(character:CharacterCard, position: Int){
 
         character.isExnpaded = true
@@ -80,85 +91,118 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     }
 
-    private fun searchByName(name: String){
-
-        val reName = name.lowercase()
+    private fun searchByName(name: String) {
 
         lifecycleScope.launchWhenStarted {
 
-            apiViewModel.searchByName(reName)
+            apiViewModel.searchByName(name.lowercase())
 
+            delay(1500)
             val response = apiViewModel.character
+            Log.i("Main", response.value.toString())
 
-            response.collect{ action ->
+            if (response.value == null) {
 
-                when (action) {
+                Alert.showConnect(this@MainActivity)
 
-                    is Resource.Error -> {
+                lifecycleScope.coroutineContext.cancelChildren()
 
-                        Alert.showError(this@MainActivity)
+            }
 
-                    }
+            response.collect { list ->
 
-                    is Resource.Success -> {
+                when {
+
+                    list?.isNotEmpty()!! -> {
 
                         showShimmer()
 
-                        val data = action.result.result
+                        val data = list.first()
 
-                        val id = data.first().homeworld.filter { it.isDigit() }
+                        val idPlanet = data.homeworld.filter { it.isDigit() }
 
                         response.flatMapConcat { response ->
 
-                            apiViewModel.getPlanet(id)
+                            apiViewModel.getPlanet(idPlanet)
 
+                            delay(1000)
                             return@flatMapConcat apiViewModel.planet
 
-                        }.collect{ action ->
+                        }.collect { list ->
 
-                            when(action){
+                            val planet = list?.first()
 
-                                is Resource.Error -> { Log.d("Planet", "ERROR") }
-                                is Resource.Success -> {
+                            val listSpecie: List<String> =
+                                data.species.ifEmpty { listOf("00", "00") }
 
-                                    val planet = action.result
+                            val idSpecie = listSpecie.first().filter { it.isDigit() }
+
+                            response.flatMapConcat { response ->
+
+                                apiViewModel.getSpecie(idSpecie)
+
+                                delay(1000)
+                                return@flatMapConcat apiViewModel.specie
+
+                            }.collect { list ->
+
+                                if (list?.isNotEmpty()!!) {
+
+                                    val specie = list.first()
 
                                     val character = CharacterCard(
 
-                                        name = data.first().name,
-                                        height = data.first().height,
-                                        mass = data.first().mass,
-                                        hair = data.first().hair ,
-                                        skin = data.first().skin,
-                                        eye = data.first().eye,
-                                        birth = data.first().birth,
-                                        gender = data.first().gender,
-                                        homeworld = planet.name,
+                                        name = data.name,
+                                        height = data.height,
+                                        mass = data.mass,
+                                        hair = data.hair,
+                                        skin = data.skin,
+                                        eye = data.eye,
+                                        birth = data.birth,
+                                        gender = data.gender,
+                                        homeworld = planet?.name!!,
+                                        specie = specie.name,
+                                        language = specie.language
+
                                     )
 
-                                    listCharacter.clear()
+                                    updateRecycler(character)
 
-                                    listCharacter.add(character)
 
-                                    adapter.notifyDataSetChanged()
+                                } else {
 
-                                    Handler(Looper.getMainLooper()).postDelayed({
+                                    val character = CharacterCard(
 
-                                        showData()
+                                        name = data.name,
+                                        height = data.height,
+                                        mass = data.mass,
+                                        hair = data.hair,
+                                        skin = data.skin,
+                                        eye = data.eye,
+                                        birth = data.birth,
+                                        gender = data.gender,
+                                        homeworld = planet?.name!!,
 
-                                    },3000)
+                                        )
+
+                                    updateRecycler(character)
 
                                 }
-                                Resource.inProgress -> {Log.d("Planet", "LOADING")}
+
+                                lifecycleScope.coroutineContext.cancelChildren()
                             }
                         }
-                    }
-
-                    Resource.inProgress -> {
-
-                        Log.d("RESPONSE", "LOADING")
 
                     }
+
+                    list.isEmpty() -> {
+
+                        Alert.showError(this@MainActivity)
+
+                        lifecycleScope.coroutineContext.cancelChildren()
+
+                    }
+
                 }
             }
         }
@@ -185,7 +229,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
         binding.shimmerViewContainer.visibility = View.VISIBLE
 
-        binding.recycler.isVisible= false
+        binding.recycler.isVisible = false
 
 
     }

@@ -1,100 +1,130 @@
 package com.example.mvvmrecycler.data.repository
 
-import android.net.wifi.hotspot2.pps.HomeSp
+import android.content.Context
+import android.util.Log
 import com.example.mvvmrecycler.data.api.APIService
 import com.example.mvvmrecycler.domain.model.*
-import com.example.mvvmrecycler.resource.Resource
-import retrofit2.Response
+import dagger.hilt.android.qualifiers.ApplicationContext
 import retrofit2.Retrofit
 import javax.inject.Inject
 
-class ApiRepositoryImpl @Inject constructor(private val retrofit: Retrofit)  : ApiRepository {
-    override suspend fun getcharacterByName(search: String): Resource<CharacterResponse> {
+class ApiRepositoryImpl @Inject constructor(private val retrofit: Retrofit) : ApiRepository {
+    override suspend fun getcharacterByName(search: String): List<Character> {
 
-        return try{
+       lateinit var list: List<Character>
+
+        try{
 
             val result = retrofit.create(APIService::class.java).getCharacterByName(search)
 
-            Resource.Success(result)
+            list = listOf(result.body()?.result!!.first())
 
 
         } catch(e: Exception) {
 
-            Resource.Error(e)
+            list = emptyList()
+
+            Log.i("MyTag", e.message.toString())
+
 
         }
 
+        return list
     }
 
-    override suspend fun getStarship(starship: String): Resource<StarShipResponse> {
 
-        return try{
+    override suspend fun getPlanet(homeworld: String): List<PlanetResponse>{
 
-            val result = retrofit.create(APIService::class.java).getStarship(starship)
+        lateinit var list: List<PlanetResponse>
 
-            Resource.Success(result)
-
-
-        } catch(e: Exception) {
-
-            Resource.Error(e)
-
-        }
-
-
-    }
-
-    override suspend fun getSpecie(specie: String): Resource<SpecieResponse> {
-
-        return try{
-
-            val result = retrofit.create(APIService::class.java).getSpecie(specie)
-
-            Resource.Success(result)
-
-
-        } catch(e: Exception) {
-
-            Resource.Error(e)
-
-        }
-
-
-
-    }
-
-    override suspend fun getVehicle(vehicle: String): Resource<VehicleResponse> {
-
-        return try{
-
-            val result = retrofit.create(APIService::class.java).getVehicle(vehicle)
-
-            Resource.Success(result)
-
-
-        } catch(e: Exception) {
-
-            Resource.Error(e)
-
-        }
-
-
-    }
-
-    override suspend fun getPlanet(homeworld: String): Resource<PlanetResponse>{
-
-        return try{
+        try{
 
             val result = retrofit.create(APIService::class.java).getPlanet(homeworld)
 
-            Resource.Success(result)
+            list = listOf(result.body()!!)
 
 
         } catch(e: Exception) {
 
-            Resource.Error(e)
+            list = emptyList()
+
+            Log.i("MyTag", e.message.toString())
 
         }
+
+        return list
+
+    }
+
+    override suspend fun getSpecie(specie: String): List<SpecieResponse> {
+
+        lateinit var list: List<SpecieResponse>
+
+        try{
+
+            val result = retrofit.create(APIService::class.java).getSpecie(specie)
+
+            list = listOf(result.body()!!)
+
+
+        } catch(e: Exception) {
+
+            list = emptyList()
+
+            Log.i("MyTag", e.message.toString())
+
+
+        }
+
+        return list
+
+
+
+    }
+
+    override suspend fun getStarship(starship: String): List<StarShipResponse> {
+
+        lateinit var list: List<StarShipResponse>
+
+        try{
+
+            val result = retrofit.create(APIService::class.java).getStarship(starship)
+
+            list = listOf(result.body()!!)
+
+
+        } catch(e: Exception) {
+
+            list = emptyList()
+
+            Log.i("MyTag", e.message.toString())
+
+        }
+
+        return list
+
+    }
+
+    override suspend fun getVehicle(vehicle: String): List<VehicleResponse> {
+
+        lateinit var list: List<VehicleResponse>
+
+        try{
+
+            val result = retrofit.create(APIService::class.java).getVehicle(vehicle)
+
+            list = listOf(result.body()!!)
+
+
+        } catch(e: Exception) {
+
+            list = emptyList()
+
+            Log.i("MyTag", e.message.toString())
+
+        }
+
+        return list
 
     }
 

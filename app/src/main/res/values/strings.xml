@@ -1,4 +1,21 @@
 <resources>
     <string name="app_name">StarWars</string>
     <string name="url">https://swapi.dev/api/</string>
+    <string name="height">· Height:</string>
+    <string name="mass">· Weight:</string>
+    <string name="skin">· Skin Color:</string>
+    <string name="hair">· Hair Color:</string>
+    <string name="eye">· Eye Color:</string>
+    <string name="birthday">· Birthday:</string>
+    <string name="specie">· Specie:</string>
+    <string name="language">· Language:</string>
+    <string name="gender">· Gender:</string>
+    <string name="planet">· Planet:</string>
+    <string name="welcome">Welcome</string>
+    <string name="welcome_message">Enter a valid name from the Star Wars in the search engine.</string>
+    <string name="error">Error</string>
+    <string name="specie_default">Human</string>
+    <string name="language_default">Galactic Basic</string>
+    <string name="error_message">Please, enter a valid name from the Star Wars</string>
+    <string name="error_connect">Please, check your internet connection</string>
 </resources>
