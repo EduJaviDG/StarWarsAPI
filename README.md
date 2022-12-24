@@ -22,6 +22,6 @@ Simple application.
 
 This is a search engine for characters from the Star Wars trilogy.
 
-When the search is successful, a drop-down card of the character is displayed,
+When the search is successful, a drop-down card of the character is displayed.
 
-to access the character's details, click on the card.
+To access the character's details, click on the card.
