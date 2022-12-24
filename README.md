@@ -1,4 +1,4 @@
-# StarWarsAPI-MVVM-Retrofit-Flow
+# StarWarsAPI-MVVM-Retrofit-Dagger-Flow
 star wars trilogy character finder
 IDE --> Android Studio Bumblebee | 2021.1.1 Patch 2
 
