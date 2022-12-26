@@ -14,8 +14,6 @@ Injecting Dependencies --> Dagger Hilt
 
 API REST --> Retrofit
 
-** You Should Select Master Branch for View and Download Code **
-
 ///////////////////////////////////////////////////////////////
 
 Simple application.
